@@ -16,7 +16,8 @@ fi
 set -e
 
 # Get postgresql database version and trim whitespaces
-DATABASE_VERSION=$(PGPASSWORD=password psql -U postgres -h "${POSTGRES_DOMAIN}" -p 5432 -d web3signer -t -A -c "SELECT version FROM database_version WHERE id=1;")
+# PGPASSWORD=${PGPASSWORD}
+DATABASE_VERSION=$(psql -U postgres -h "${POSTGRES_DOMAIN}" -p 5432 -d "${POSTGRES_DB}" -t -A -c "SELECT version FROM database_version WHERE id=1;")
 
 # Get the latest migration file version (ending in .sql) and trim whitespaces
 LATEST_MIGRATION_VERSION=$(ls -1 /flyway/sql/ | grep -E "V[0-9]+__.*.sql$" | tail -n 1 | cut -d'_' -f1 | cut -d'V' -f2 | sed 's/^0*//' | tr -d '[:space:]')
@@ -35,7 +36,7 @@ if [ "$DATABASE_VERSION" -ge "$LATEST_MIGRATION_VERSION" ]; then
   exit 0
 else
   echo "[INFO - entrypoint] Database version is less than the latest migration file version. Migrating..."
-  flyway -baselineOnMigrate="true" -baselineVersion="${DATABASE_VERSION}" -url="jdbc:postgresql://${POSTGRES_DOMAIN}:5432/web3signer" -user=postgres -password=password -connectRetries=60 migrate
+  flyway -baselineOnMigrate="true" -baselineVersion="${DATABASE_VERSION}" -url="jdbc:postgresql://${POSTGRES_DOMAIN}:5432/web3signer" -user="${POSTGRES_USER}" -password="${PGPASSWORD}" -connectRetries=60 migrate
   echo "[INFO - entrypoint] Migration completed"
   exit 0
 fi

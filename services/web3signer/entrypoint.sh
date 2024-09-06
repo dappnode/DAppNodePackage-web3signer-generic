@@ -51,9 +51,9 @@ run_web3signer() {
     --idle-connection-timeout-seconds=900 \
     eth2 \
     --network="${NETWORK}" \
-    --slashing-protection-db-url="jdbc:postgresql://postgres.${WEB3SIGNER_DOMAIN}:5432/web3signer" \
-    --slashing-protection-db-username=postgres \
-    --slashing-protection-db-password=password \
+    --slashing-protection-db-url="jdbc:postgresql://postgres.${WEB3SIGNER_DOMAIN}:5432/${POSTGRES_DB}" \
+    --slashing-protection-db-username="${POSTGRES_USER}" \
+    --slashing-protection-db-password="${PGPASSWORD}" \
     --slashing-protection-pruning-enabled=true \
     --slashing-protection-pruning-epochs-to-keep=500 \
     --key-manager-api-enabled=true ${EXTRA_OPTS}

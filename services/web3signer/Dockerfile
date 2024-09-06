@@ -4,6 +4,9 @@ FROM consensys/web3signer:$WEB3SIGNER_VERSION
 
 ARG NETWORK
 ARG STAKER_SCRIPTS_VERSION
+ARG PGPASSWORD
+ARG POSTGRES_DB
+ARG POSTGRES_USER
 
 USER root
 
@@ -19,6 +22,9 @@ RUN chmod +rx /usr/local/bin/entrypoint.sh /etc/profile.d/common_tools.sh
 
 # This env changes the variant
 # Placed at the end to regenerate the least amount of layers
-ENV NETWORK=${NETWORK}
+ENV NETWORK=${NETWORK} \
+    PGPASSWORD=${PGPASSWORD} \
+    POSTGRES_DB=${POSTGRES_DB} \
+    POSTGRES_USER=${POSTGRES_USER}
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]

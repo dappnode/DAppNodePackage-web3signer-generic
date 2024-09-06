@@ -9,6 +9,8 @@ services:
     build:
       args:
         NETWORK: holesky
+        PGPASSWORD: password
+        POSTGRES_DB: web3signer
     healthcheck:
       test: >-
         curl -H 'Host: web3signer.web3signer-holesky.dappnode'
@@ -21,3 +23,12 @@ services:
     build:
       args:
         NETWORK: holesky
+        PGPASSWORD: password
+        POSTGRES_DB: web3signer
+
+  postgres:
+    build:
+      args:
+        POSTGRES_PASSWORD: password
+        PGPASSWORD: password
+        POSTGRES_DB: web3signer

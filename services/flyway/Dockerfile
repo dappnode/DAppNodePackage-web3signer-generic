@@ -9,9 +9,16 @@ RUN apk --no-cache add git && \
 FROM flyway/flyway:9.16.1-alpine
 
 ARG NETWORK
+ARG PGPASSWORD
+ARG POSTGRES_DB
+ARG POSTGRES_USER
+
 
 ENV MIGRATIONS_DIR=/flyway/sql \
-    NETWORK=${NETWORK}
+    NETWORK=${NETWORK} \
+    PGPASSWORD=${PGPASSWORD} \
+    POSTGRES_DB=${POSTGRES_DB} \
+    POSTGRES_USER=${POSTGRES_USER}
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 
