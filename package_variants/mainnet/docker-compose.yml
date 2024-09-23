@@ -28,6 +28,7 @@ services:
 
   postgres:
     build:
+      dockerfile: Dockerfile.debian
       args:
         POSTGRES_PASSWORD: password
         PGPASSWORD: password
