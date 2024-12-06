@@ -2,7 +2,7 @@
   "upstream": [
     {
       "repo": "ConsenSys/web3signer",
-      "version": "24.6.0",
+      "version": "24.12.0",
       "arg": "WEB3SIGNER_VERSION"
     },
     {
@@ -12,7 +12,7 @@
     },
     {
       "repo": "dappnode/staker-package-scripts",
-      "version": "v0.1.0",
+      "version": "v0.1.1",
       "arg": "STAKER_SCRIPTS_VERSION"
     }
   ],
