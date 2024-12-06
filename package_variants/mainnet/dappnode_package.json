@@ -1,6 +1,6 @@
 {
   "name": "web3signer.dnp.dappnode.eth",
-  "version": "2.0.9",
+  "version": "2.0.13",
   "links": {
     "ui": "http://brain.web3signer.dappnode",
     "homepage": "https://docs.web3signer.consensys.net/en/latest/",

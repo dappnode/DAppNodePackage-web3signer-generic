@@ -19,8 +19,8 @@ services:
     build:
       context: services/web3signer
       args:
-        WEB3SIGNER_VERSION: 24.6.0
-        STAKER_SCRIPTS_VERSION: v0.1.0
+        WEB3SIGNER_VERSION: 24.12.0
+        STAKER_SCRIPTS_VERSION: v0.1.1
         POSTGRES_USER: postgres
     environment:
       JAVA_OPTS: "-Xmx6g"
@@ -33,7 +33,7 @@ services:
     build:
       context: services/flyway
       args:
-        WEB3SIGNER_VERSION: 24.6.0
+        WEB3SIGNER_VERSION: 24.12.0
         POSTGRES_USER: postgres
     depends_on:
       postgres:
@@ -43,7 +43,7 @@ services:
     build:
       context: services/postgres
       args:
-        WEB3SIGNER_VERSION: 24.6.0
+        WEB3SIGNER_VERSION: 24.12.0
         DATA_DIR: /var/lib/postgresql/data
         POSTGRES_USER: postgres
     user: postgres
