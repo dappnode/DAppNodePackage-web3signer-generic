@@ -4,7 +4,7 @@ services:
     build:
       context: services/brain
       args:
-        BRAIN_VERSION: 0.1.25
+        BRAIN_VERSION: 0.1.26
     environment:
       - LOG_LEVEL=debug
     restart: unless-stopped
@@ -19,7 +19,7 @@ services:
     build:
       context: services/web3signer
       args:
-        WEB3SIGNER_VERSION: 24.12.0
+        WEB3SIGNER_VERSION: 25.2.0
         STAKER_SCRIPTS_VERSION: v0.1.1
         POSTGRES_USER: postgres
     environment:
@@ -33,7 +33,7 @@ services:
     build:
       context: services/flyway
       args:
-        WEB3SIGNER_VERSION: 24.12.0
+        WEB3SIGNER_VERSION: 25.2.0
         POSTGRES_USER: postgres
     depends_on:
       postgres:
@@ -43,7 +43,7 @@ services:
     build:
       context: services/postgres
       args:
-        WEB3SIGNER_VERSION: 24.12.0
+        WEB3SIGNER_VERSION: 25.2.0
         DATA_DIR: /var/lib/postgresql/data
         POSTGRES_USER: postgres
     user: postgres
