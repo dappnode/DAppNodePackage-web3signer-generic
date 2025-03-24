@@ -1,6 +1,6 @@
 {
   "name": "web3signer-holesky.dnp.dappnode.eth",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "links": {
     "ui": "http://brain.web3signer-holesky.dappnode",
     "homepage": "https://docs.web3signer.consensys.net/en/latest/",
