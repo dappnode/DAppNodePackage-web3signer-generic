@@ -1,0 +1,23 @@
+{
+  "name": "web3signer-hoodi.dnp.dappnode.eth",
+  "version": "0.1.11",
+  "links": {
+    "ui": "http://brain.web3signer-hoodi.dappnode",
+    "homepage": "https://docs.web3signer.consensys.net/en/latest/",
+    "readme": "https://github.com/ConsenSys/web3signer/blob/master/README.md"
+  },
+  "globalEnvs": [
+    {
+      "envs": [
+        "CONSENSUS_CLIENT_HOODI",
+        "EXECUTION_CLIENT_HOODI",
+        "MEVBOOST_HOODI"
+      ],
+      "services": ["brain"]
+    },
+    {
+      "envs": ["CONSENSUS_CLIENT_HOODI"],
+      "services": ["web3signer"]
+    }
+  ]
+}

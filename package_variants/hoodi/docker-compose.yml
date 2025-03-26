@@ -1,0 +1,35 @@
+version: "3.8"
+services:
+  brain:
+    build:
+      args:
+        NETWORK: hoodi
+
+  web3signer:
+    build:
+      args:
+        NETWORK: hoodi
+        PGPASSWORD: password
+        POSTGRES_DB: web3signer
+    healthcheck:
+      test: >-
+        curl -H 'Host: web3signer.web3signer-hoodi.dappnode'
+        http://localhost:9000/healthcheck
+      interval: 5s
+      timeout: 5s
+      retries: 100
+
+  flyway:
+    build:
+      args:
+        NETWORK: hoodi
+        PGPASSWORD: password
+        POSTGRES_DB: web3signer
+
+  postgres:
+    build:
+      dockerfile: Dockerfile.alpine
+      args:
+        POSTGRES_PASSWORD: password
+        PGPASSWORD: password
+        POSTGRES_DB: web3signer

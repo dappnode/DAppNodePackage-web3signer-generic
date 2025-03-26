@@ -1,6 +1,6 @@
 # Dappnode Package _Web3Signer_
 
-This repo includes the Web3Signer packages for: Holesky, Mainnet, LUKSO and Gnosis
+This repo includes the Web3Signer packages for: Holesky, Hoodi, Mainnet, LUKSO and Gnosis
 
 ![](avatar.png)
 

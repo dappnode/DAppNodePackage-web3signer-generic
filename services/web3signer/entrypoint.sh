@@ -1,6 +1,6 @@
 #!/bin/sh
 
-SUPPORTED_NETWORKS="mainnet holesky gnosis lukso"
+SUPPORTED_NETWORKS="mainnet holesky hoodi gnosis lukso"
 KEYFILES_DIR="/data/keyfiles"
 
 # shellcheck disable=SC1091

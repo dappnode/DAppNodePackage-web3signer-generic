@@ -1,0 +1,9 @@
+[
+  {
+    "labels": {
+      "package": "web3signer-hoodi.dnp.dappnode.eth",
+      "service": "web3signer.web3signer-hoodi.dappnode"
+    },
+    "targets": ["web3signer.web3signer-hoodi.dappnode:9091"]
+  }
+]
