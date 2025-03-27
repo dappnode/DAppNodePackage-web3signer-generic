@@ -20,7 +20,7 @@ services:
       context: services/web3signer
       args:
         WEB3SIGNER_VERSION: 25.3.0
-        STAKER_SCRIPTS_VERSION: v0.1.1
+        STAKER_SCRIPTS_VERSION: 0.1.2
         POSTGRES_USER: postgres
     environment:
       JAVA_OPTS: "-Xmx6g"
