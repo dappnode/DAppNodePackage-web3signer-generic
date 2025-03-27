@@ -4,7 +4,7 @@ services:
     build:
       context: services/brain
       args:
-        BRAIN_VERSION: 0.1.26
+        BRAIN_VERSION: 0.1.27
     environment:
       - LOG_LEVEL=debug
     restart: unless-stopped
