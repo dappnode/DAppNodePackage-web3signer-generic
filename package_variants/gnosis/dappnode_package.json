@@ -1,6 +1,6 @@
 {
   "name": "web3signer-gnosis.dnp.dappnode.eth",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "links": {
     "ui": "http://brain.web3signer-gnosis.dappnode",
     "homepage": "https://docs.web3signer.consensys.net/en/latest/",
