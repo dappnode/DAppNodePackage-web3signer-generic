@@ -2,12 +2,12 @@
   "upstream": [
     {
       "repo": "ConsenSys/web3signer",
-      "version": "25.4.1",
+      "version": "25.6.0",
       "arg": "WEB3SIGNER_VERSION"
     },
     {
       "repo": "dappnode/StakingBrain",
-      "version": "0.1.30",
+      "version": "0.1.29",
       "arg": "BRAIN_VERSION"
     },
     {
