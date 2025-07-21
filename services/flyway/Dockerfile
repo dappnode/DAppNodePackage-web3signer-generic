@@ -6,7 +6,7 @@ WORKDIR /usr/src/app
 RUN apk --no-cache add git && \
     git clone --depth 1 --branch ${WEB3SIGNER_VERSION} https://github.com/ConsenSys/web3signer.git
 
-FROM flyway/flyway:9.16.1-alpine
+FROM flyway/flyway:11.10-alpine
 
 ARG NETWORK
 ARG PGPASSWORD
