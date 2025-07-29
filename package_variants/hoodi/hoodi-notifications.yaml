@@ -2,12 +2,15 @@
     - name: "Hoodi Validator offline - online notification"
       description: "Notification when a validator goes offline and comes back online."
       correlationId: "hoodi-validator-liveness"
+      isBanner: true
       enabled: true
     - name: "Hoodi Validator block proposal - missed notification"
       description: "Notification when a validator proposes a block or misses a block proposal."
       correlationId: "hoodi-block-proposal"
+      isBanner: true
       enabled: true
     - name: "Hoodi Validator slashed notification"
       description: "Notification when a validator is slashed."
       correlationId: "hoodi-validator-slashed"
+      isBanner: true
       enabled: true

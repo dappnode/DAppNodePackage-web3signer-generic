@@ -2,12 +2,15 @@
     - name: "Gnosis Validator offline - online notification"
       description: "Notification when a validator goes offline and comes back online."
       correlationId: "gnosis-validator-liveness"
+      isBanner: true
       enabled: true
     - name: "Gnosis Validator block proposal - missed notification"
       description: "Notification when a validator proposes a block or misses a block proposal."
       correlationId: "gnosis-block-proposal"
+      isBanner: true
       enabled: true
     - name: "Gnosis Validator slashed notification"
       description: "Notification when a validator is slashed."
       correlationId: "gnosis-validator-slashed"
+      isBanner: true
       enabled: true
