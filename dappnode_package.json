@@ -17,7 +17,7 @@
     },
     {
       "repo": "dappnode/validator-tracker",
-      "version": "v0.1.0",
+      "version": "0.1.0",
       "arg": "TRACKER_VERSION"
     }
   ],
