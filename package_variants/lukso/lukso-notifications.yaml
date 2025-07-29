@@ -1,0 +1,16 @@
+  customEndpoints:
+    - name: "Lukso Validator offline - online notification"
+      description: "Notification when a validator goes offline and comes back online."
+      correlationId: "lukso-validator-liveness"
+      isBanner: true
+      enabled: true
+    - name: "Lukso Validator block proposal - missed notification"
+      description: "Notification when a validator proposes a block or misses a block proposal."
+      correlationId: "lukso-block-proposal"
+      isBanner: true
+      enabled: true
+    - name: "Lukso Validator slashed notification"
+      description: "Notification when a validator is slashed."
+      correlationId: "lukso-validator-slashed"
+      isBanner: true
+      enabled: true

@@ -14,6 +14,11 @@
       "repo": "dappnode/staker-package-scripts",
       "version": "v0.1.2",
       "arg": "STAKER_SCRIPTS_VERSION"
+    },
+    {
+      "repo": "dappnode/validator-tracker",
+      "version": "v0.1.0",
+      "arg": "TRACKER_VERSION"
     }
   ],
   "architectures": ["linux/amd64", "linux/arm64"],
