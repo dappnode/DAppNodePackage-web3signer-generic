@@ -54,7 +54,7 @@ services:
     build:
       context: services/tracker
       args:
-        TRACKER_VERSION: v0.1.1
+        TRACKER_VERSION: 0.1.2
     restart: unless-stopped
 volumes:
   brain_data: {}
