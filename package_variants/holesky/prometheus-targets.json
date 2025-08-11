@@ -1,9 +1,0 @@
-[
-  {
-    "labels": {
-      "package": "web3signer-holesky.dnp.dappnode.eth",
-      "service": "web3signer.web3signer-holesky.dappnode"
-    },
-    "targets": ["web3signer.web3signer-holesky.dappnode:9091"]
-  }
-]
