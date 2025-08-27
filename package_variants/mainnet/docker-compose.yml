@@ -36,3 +36,8 @@ services:
         PGPASSWORD: mainnet
         POSTGRES_DB: web3signer-mainnet
         POSTGRES_USER: postgres
+    
+  tracker:
+    build:
+      args:
+        NETWORK: mainnet
