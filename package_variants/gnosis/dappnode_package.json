@@ -7,6 +7,11 @@
     "homepage": "https://docs.web3signer.consensys.net/en/latest/",
     "readme": "https://github.com/ConsenSys/web3signer/blob/master/README.md"
   },
+  "optionalDependencies": {
+    "lighthouse-gnosis.dnp.dappnode.eth": ">=0.1.15",
+    "teku-gnosis.dnp.dappnode.eth": ">=0.1.15",
+    "lodestar-gnosis.dnp.dappnode.eth": ">=0.1.32"
+  },
   "globalEnvs": [
     {
       "envs": ["CONSENSUS_CLIENT_GNOSIS", "EXECUTION_CLIENT_GNOSIS"],
