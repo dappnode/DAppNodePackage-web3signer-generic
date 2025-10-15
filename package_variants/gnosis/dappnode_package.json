@@ -3,7 +3,7 @@
   "version": "1.0.14",
   "requirements": {
     "minimumDappnodeVersion": "0.3.11"
-  }
+  },
   "links": {
     "ui": "http://brain.web3signer-gnosis.dappnode",
     "homepage": "https://docs.web3signer.consensys.net/en/latest/",
