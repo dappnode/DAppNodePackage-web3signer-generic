@@ -2,7 +2,8 @@
   "name": "web3signer-gnosis.dnp.dappnode.eth",
   "version": "1.0.14",
   "requirements": {
-    "minimumDappnodeVersion": "0.3.11"
+    "minimumDappnodeVersion": "0.3.11",
+    "notInstalledPackages": ["nimbus-gnosis.dnp.dappnode.eth"]
   },
   "links": {
     "ui": "http://brain.web3signer-gnosis.dappnode",
