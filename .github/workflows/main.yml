@@ -9,6 +9,11 @@ on:
     paths-ignore:
       - "README.md"
   workflow_dispatch:
+    inputs:
+      variants:
+        description: 'Comma-separated list of variants to build (gnosis, lukso, hoodi, mainnet). Leave empty for all variants.'
+        required: false
+        type: string
 
 jobs:
   build-test:
@@ -17,7 +22,37 @@ jobs:
     if: github.event_name != 'push'
     steps:
       - uses: actions/checkout@v4
-      - run: npx @dappnode/dappnodesdk build --skip_save --variant mainnet
+      - name: Validate variants input
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.variants != ''
+        run: |
+          variants="${{ github.event.inputs.variants }}"
+          IFS=',' read -ra VARIANT_ARRAY <<< "$variants"
+          valid_variants=("gnosis" "lukso" "hoodi" "mainnet")
+          
+          for variant in "${VARIANT_ARRAY[@]}"; do
+            variant=$(echo "$variant" | xargs) # trim whitespace
+            is_valid=false
+            for valid in "${valid_variants[@]}"; do
+              if [ "$variant" == "$valid" ]; then
+                is_valid=true
+                break
+              fi
+            done
+            if [ "$is_valid" == "false" ]; then
+              echo "Error: Invalid variant '$variant'. Valid variants are: gnosis, lukso, hoodi, mainnet"
+              exit 1
+            fi
+          done
+          echo "Variants validated successfully: $variants"
+      - name: Build
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ] && [ -n "${{ github.event.inputs.variants }}" ]; then
+            npx @dappnode/dappnodesdk build --skip_save --variants=${{ github.event.inputs.variants }}
+          elif [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            npx @dappnode/dappnodesdk build --skip_save --all-variants
+          else
+            npx @dappnode/dappnodesdk build --skip_save --variant mainnet
+          fi
 
   release:
     name: Release
