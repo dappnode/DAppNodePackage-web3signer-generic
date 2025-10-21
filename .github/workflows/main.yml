@@ -14,12 +14,17 @@ on:
         description: 'Comma-separated list of variants to build (gnosis, lukso, hoodi, mainnet). Leave empty for all variants.'
         required: false
         type: string
+      release:
+        description: 'Run release job instead of build-test'
+        required: false
+        type: boolean
+        default: false
 
 jobs:
   build-test:
     runs-on: ubuntu-latest
     name: Build test
-    if: github.event_name != 'push'
+    if: github.event_name == 'pull_request' || (github.event_name == 'workflow_dispatch' && github.event.inputs.release != 'true')
     steps:
       - uses: actions/checkout@v4
       - name: Validate variants input
@@ -57,11 +62,38 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
+    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.event.inputs.release == 'true')
     steps:
       - uses: actions/checkout@v4
+      - name: Validate variants input
+        if: github.event_name == 'workflow_dispatch' && github.event.inputs.variants != ''
+        run: |
+          variants="${{ github.event.inputs.variants }}"
+          IFS=',' read -ra VARIANT_ARRAY <<< "$variants"
+          valid_variants=("gnosis" "lukso" "hoodi" "mainnet")
+          
+          for variant in "${VARIANT_ARRAY[@]}"; do
+            variant=$(echo "$variant" | xargs) # trim whitespace
+            is_valid=false
+            for valid in "${valid_variants[@]}"; do
+              if [ "$variant" == "$valid" ]; then
+                is_valid=true
+                break
+              fi
+            done
+            if [ "$is_valid" == "false" ]; then
+              echo "Error: Invalid variant '$variant'. Valid variants are: gnosis, lukso, hoodi, mainnet"
+              exit 1
+            fi
+          done
+          echo "Variants validated successfully: $variants"
       - name: Publish
-        run: npx @dappnode/dappnodesdk publish patch --dappnode_team_preset --all-variants
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ] && [ -n "${{ github.event.inputs.variants }}" ]; then
+            npx @dappnode/dappnodesdk publish patch --dappnode_team_preset --variants=${{ github.event.inputs.variants }}
+          else
+            npx @dappnode/dappnodesdk publish patch --dappnode_team_preset --all-variants
+          fi
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEVELOPER_ADDRESS: "0xf35960302a07022aba880dffaec2fdd64d5bf1c1"
