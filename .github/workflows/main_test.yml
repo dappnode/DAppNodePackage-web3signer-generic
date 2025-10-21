@@ -1,0 +1,54 @@
+name: "Main_test"
+on:
+  workflow_dispatch:
+    inputs:
+      variants:
+        description: 'Comma-separated list of variants to build/release. Allowed values: gnosis, lukso, mainnet, hoodi (e.g., "gnosis,mainnet" or "lukso" or "gnosis,lukso,mainnet,hoodi")'
+        required: false
+        default: 'gnosis,lukso,mainnet,hoodi'
+        type: string
+
+jobs:
+  prepare-matrix:
+    runs-on: ubuntu-latest
+    outputs:
+      variants: ${{ steps.set-matrix.outputs.variants }}
+    steps:
+      - id: set-matrix
+        run: |
+          if [ "${{ github.event_name }}" == "workflow_dispatch" ]; then
+            # Convert comma-separated input to JSON array
+            VARIANTS="${{ inputs.variants }}"
+            VARIANTS_JSON=$(echo "$VARIANTS" | jq -R -s -c 'split(",") | map(gsub("^\\s+|\\s+$";""))')
+            echo "variants=$VARIANTS_JSON" >> $GITHUB_OUTPUT
+          else
+            echo 'variants=["gnosis","lukso","mainnet","hoodi"]' >> $GITHUB_OUTPUT
+          fi
+
+  build-test:
+    needs: prepare-matrix
+    runs-on: ubuntu-latest
+    name: Build test
+    if: github.event_name != 'push'
+    strategy:
+      matrix:
+        variant: ${{ fromJSON(needs.prepare-matrix.outputs.variants) }}
+    steps:
+      - uses: actions/checkout@v4
+      - run: npx @dappnode/dappnodesdk build --skip_save --variant ${{ matrix.variant }}
+
+  release:
+    needs: prepare-matrix
+    name: Release
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    strategy:
+      matrix:
+        variant: ${{ fromJSON(needs.prepare-matrix.outputs.variants) }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Publish
+        run: npx @dappnode/dappnodesdk publish patch --dappnode_team_preset --variant ${{ matrix.variant }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DEVELOPER_ADDRESS: "0xf35960302a07022aba880dffaec2fdd64d5bf1c1"
