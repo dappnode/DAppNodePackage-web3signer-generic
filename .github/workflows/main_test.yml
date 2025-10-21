@@ -25,23 +25,10 @@ jobs:
             echo 'variants=["gnosis","lukso","mainnet","hoodi"]' >> $GITHUB_OUTPUT
           fi
 
-  build-test:
-    needs: prepare-matrix
-    runs-on: ubuntu-latest
-    name: Build test
-    if: github.event_name != 'push'
-    strategy:
-      matrix:
-        variant: ${{ fromJSON(needs.prepare-matrix.outputs.variants) }}
-    steps:
-      - uses: actions/checkout@v4
-      - run: npx @dappnode/dappnodesdk build --skip_save --variant ${{ matrix.variant }}
-
   release:
     needs: prepare-matrix
     name: Release
     runs-on: ubuntu-latest
-    if: github.event_name == 'push'
     strategy:
       matrix:
         variant: ${{ fromJSON(needs.prepare-matrix.outputs.variants) }}
