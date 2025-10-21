@@ -3,6 +3,8 @@ name: Debug Network Route with Traceroute
 on:
   workflow_dispatch:
 
+permissions: {}
+
 jobs:
   traceroute:
     runs-on: ubuntu-latest
