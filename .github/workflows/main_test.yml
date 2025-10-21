@@ -1,13 +1,5 @@
 name: "Main_test"
 on:
-  pull_request:
-  push:
-    branches:
-      - "master"
-      - "main"
-      - "v[0-9]+.[0-9]+.[0-9]+"
-    paths-ignore:
-      - "README.md"
   workflow_dispatch:
     inputs:
       variants:
