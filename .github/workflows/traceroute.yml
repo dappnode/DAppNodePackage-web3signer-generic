@@ -1,0 +1,48 @@
+name: Debug Network Route with Traceroute
+
+on:
+  workflow_dispatch:
+
+jobs:
+  traceroute:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Print runner public IP
+        run: |
+          echo "Public IP:"
+          curl -s https://ipinfo.io/ip
+
+      - name: Print runner geo info
+        run: |
+          echo "Geo info:"
+          curl -s https://ipinfo.io
+
+      - name: Traceroute to IPFS gateway
+        run: |
+          echo "Traceroute to ipfs-gateway-dev.dappnode.net:"
+          traceroute ipfs-gateway-dev.dappnode.net || true
+
+      - name: Traceroute to google.com (comparison)
+        run: |
+          echo "Traceroute to google.com:"
+          traceroute google.com || true
+
+      - name: Test download speed (wget)
+        run: |
+          echo "Testing download speed (upload not possible without external service):"
+          wget -O /dev/null http://speedtest.tele2.net/100MB.zip
+
+      - name: Print network interfaces
+        run: |
+          echo "Network interfaces:"
+          ip addr
+
+      - name: Print routing table
+        run: |
+          echo "Routing table:"
+          ip route
+
+      - name: Print DNS info
+        run: |
+          echo "DNS info:"
+          cat /etc/resolv.conf
