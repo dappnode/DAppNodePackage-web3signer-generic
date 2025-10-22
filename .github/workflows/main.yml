@@ -8,6 +8,7 @@ on:
       - "v[0-9]+.[0-9]+.[0-9]+"
     paths-ignore:
       - "README.md"
+      - ".github/workflows/main_test.yml"
 
 jobs:
   build-test:
