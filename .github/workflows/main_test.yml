@@ -28,14 +28,14 @@ jobs:
   release:
     needs: prepare-matrix
     name: Release
-    runs-on: ubuntu-latest
+    runs-on: ipfs-dev-gateway
     strategy:
       matrix:
         variant: ${{ fromJSON(needs.prepare-matrix.outputs.variants) }}
     steps:
       - uses: actions/checkout@v4
       - name: Publish
-        run: npx @dappnode/dappnodesdk publish patch --dappnode_team_preset --variant ${{ matrix.variant }}
+        run: npx @dappnode/dappnodesdk publish patch --content_provider=http://10.200.200.7:5001 --variant ${{ matrix.variant }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           DEVELOPER_ADDRESS: "0xf35960302a07022aba880dffaec2fdd64d5bf1c1"
