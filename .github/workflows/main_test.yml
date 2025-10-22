@@ -34,6 +34,10 @@ jobs:
         variant: ${{ fromJSON(needs.prepare-matrix.outputs.variants) }}
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: 'npm'
       - name: Publish
         run: npx @dappnode/dappnodesdk publish patch --content_provider=http://10.200.200.7:5001 --variant ${{ matrix.variant }}
         env:
