@@ -37,6 +37,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
       - name: Publish
         run: npx @dappnode/dappnodesdk publish patch --github_release --content_provider=http://10.200.200.7:5001 --eth_provider=https://web3.dappnode.net --variant ${{ matrix.variant }}
         env:
