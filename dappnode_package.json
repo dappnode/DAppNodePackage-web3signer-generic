@@ -2,7 +2,7 @@
   "upstream": [
     {
       "repo": "ConsenSys/web3signer",
-      "version": "26.4.0-RC1",
+      "version": "26.4.0",
       "arg": "WEB3SIGNER_VERSION"
     },
     {
