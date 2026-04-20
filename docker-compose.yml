@@ -55,6 +55,8 @@ services:
       context: services/tracker
       args:
         TRACKER_VERSION: 0.1.5
+      environment:
+        DUTIES_CHECKER_POLL_INTERVAL_SECONDS:
     restart: unless-stopped
 volumes:
   brain_data: {}
