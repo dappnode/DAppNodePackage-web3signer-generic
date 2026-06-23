@@ -1,45 +1,9 @@
 {
-  "upstream": [
-    {
-      "repo": "ConsenSys/web3signer",
-      "version": "26.4.2",
-      "arg": "WEB3SIGNER_VERSION"
-    },
-    {
-      "repo": "dappnode/StakingBrain",
-      "version": "0.1.32",
-      "arg": "BRAIN_VERSION"
-    },
-    {
-      "repo": "dappnode/staker-package-scripts",
-      "version": "v0.1.2",
-      "arg": "STAKER_SCRIPTS_VERSION"
-    },
-    {
-      "repo": "dappnode/validator-tracker",
-      "version": "0.1.5",
-      "arg": "TRACKER_VERSION"
-    }
+  "architectures": [
+    "linux/amd64",
+    "linux/arm64"
   ],
-  "architectures": ["linux/amd64", "linux/arm64"],
-  "mainService": "web3signer",
-  "shortDescription": "Remote signer + slashing protection database + User interface to import validator keystores + Flyway for handling db migrations + validatro tracker for notifications",
-  "description": "Web3Signer package manages your validator keystores effectively, providing a seamless way to handle signing requests and switch between clients with ease.",
-  "type": "service",
   "author": "DAppNode Association <admin@dappnode.io> (https://github.com/dappnode)",
-  "contributors": [
-    "mgarciate <mgarciate@gmail.com> (https://github.com/mgarciate)",
-    "pablomendezroyo <mendez4a@gmail.com> (https://github.com/pablomendezroyo"
-  ],
-  "categories": ["Blockchain", "ETH2.0"],
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/dappnode/DAppNodePackage-web3signer-generic.git"
-  },
-  "bugs": {
-    "url": "https://github.com/dappnode/DAppNodePackage-web3signer-generic/issues"
-  },
-  "license": "Apache-2.0",
   "backup": [
     {
       "name": "keystores",
@@ -52,7 +16,49 @@
       "service": "brain"
     }
   ],
+  "bugs": {
+    "url": "https://github.com/dappnode/DAppNodePackage-web3signer-generic/issues"
+  },
+  "categories": [
+    "Blockchain",
+    "ETH2.0"
+  ],
+  "contributors": [
+    "mgarciate <mgarciate@gmail.com> (https://github.com/mgarciate)",
+    "pablomendezroyo <mendez4a@gmail.com> (https://github.com/pablomendezroyo"
+  ],
+  "description": "Web3Signer package manages your validator keystores effectively, providing a seamless way to handle signing requests and switch between clients with ease.",
+  "license": "Apache-2.0",
+  "mainService": "web3signer",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dappnode/DAppNodePackage-web3signer-generic.git"
+  },
   "requirements": {
     "minimumDappnodeVersion": "0.2.101"
-  }
+  },
+  "shortDescription": "Remote signer + slashing protection database + User interface to import validator keystores + Flyway for handling db migrations + validatro tracker for notifications",
+  "type": "service",
+  "upstream": [
+    {
+      "arg": "WEB3SIGNER_VERSION",
+      "repo": "ConsenSys/web3signer",
+      "version": "26.4.2"
+    },
+    {
+      "arg": "BRAIN_VERSION",
+      "repo": "dappnode/StakingBrain",
+      "version": "0.1.31"
+    },
+    {
+      "arg": "STAKER_SCRIPTS_VERSION",
+      "repo": "dappnode/staker-package-scripts",
+      "version": "v0.1.2"
+    },
+    {
+      "arg": "TRACKER_VERSION",
+      "repo": "dappnode/validator-tracker",
+      "version": "0.1.5"
+    }
+  ]
 }
