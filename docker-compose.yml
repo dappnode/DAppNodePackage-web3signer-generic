@@ -19,7 +19,7 @@ services:
     build:
       context: services/web3signer
       args:
-        WEB3SIGNER_VERSION: 26.4.2
+        WEB3SIGNER_VERSION: 26.9.0
         STAKER_SCRIPTS_VERSION: v0.1.2
         POSTGRES_USER: postgres
     environment:
