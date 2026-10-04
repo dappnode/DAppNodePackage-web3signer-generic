@@ -1,6 +1,6 @@
 {
   "name": "web3signer-lukso.dnp.dappnode.eth",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "links": {
     "ui": "http://brain.web3signer-lukso.dappnode",
     "homepage": "https://docs.web3signer.consensys.net/en/latest/",
