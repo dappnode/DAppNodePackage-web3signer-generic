@@ -22,6 +22,32 @@ generate_cors_settings() {
   echo "[INFO - entrypoint] Generated CORS_ORIGINS: ${CORS_ORIGINS}"
 }
 
+# Hostnames (Host header) web3signer accepts on port 9000. Every name another package
+# or the DAppManager uses to reach this service must be listed here, otherwise its
+# requests get a 403. Users can append more (or "*") with EXTRA_HOST_ALLOWLIST.
+generate_host_allowlist() {
+  # localhost/127.0.0.1: web3signer defaults, used by local tooling
+  # web3signer.<domain>: staker-scripts validator URL, rocketpool, keys registered by brain <= 0.1.19
+  HOST_ALLOWLIST="localhost,127.0.0.1,${WEB3SIGNER_DOMAIN},web3signer.${WEB3SIGNER_DOMAIN},brain.${WEB3SIGNER_DOMAIN}"
+
+  # Aliases added by the DAppManager stakers module on dncore, staker and private networks.
+  # signer.<network>.dncore.dappnode: brain >= 0.1.20 (and the remote keys it registers), lido-csm
+  # web3signer.<network>.dncore.dappnode: validator-tracker
+  for alias in signer web3signer; do
+    HOST_ALLOWLIST="${HOST_ALLOWLIST},${alias}.${NETWORK}.dncore.dappnode,${alias}.${NETWORK}.staker.dappnode,${alias}.${NETWORK}.dappnode.private"
+  done
+
+  if [ -n "${consensus_domain}" ]; then
+    HOST_ALLOWLIST="${HOST_ALLOWLIST},validator.${consensus_domain}"
+  fi
+
+  if [ -n "${EXTRA_HOST_ALLOWLIST}" ]; then
+    HOST_ALLOWLIST="${HOST_ALLOWLIST},${EXTRA_HOST_ALLOWLIST}"
+  fi
+
+  echo "[INFO - entrypoint] Generated HOST_ALLOWLIST: ${HOST_ALLOWLIST}"
+}
+
 prepare_keyfiles_dir() {
   # IMPORTANT! The dir defined for --key-store-path must exist and have specific permissions. Should not be created with a docker volume
   mkdir -p "${KEYFILES_DIR}"
@@ -35,7 +61,7 @@ run_web3signer() {
   FLAGS="--key-store-path=$KEYFILES_DIR \
     --http-listen-port=9000 \
     --http-listen-host=0.0.0.0 \
-    --http-host-allowlist=* \
+    --http-host-allowlist=$HOST_ALLOWLIST \
     --http-cors-origins=$CORS_ORIGINS \
     --metrics-enabled=true \
     --metrics-host 0.0.0.0 \
@@ -58,5 +84,6 @@ run_web3signer() {
 }
 
 generate_cors_settings
+generate_host_allowlist
 prepare_keyfiles_dir
 run_web3signer
