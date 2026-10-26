@@ -13,6 +13,22 @@ else
   POSTGRES_DOMAIN="postgres.web3signer-${NETWORK}.dappnode"
 fi
 
+# Wait for postgres to accept connections instead of exiting early: web3signer only starts once
+# flyway completes successfully, and some docker compose versions abort `up` (making the
+# DAppManager roll back the update) on the first non-zero exit of a dependency, even with a
+# restart policy. Postgres can take a while to start, e.g. on first start or during an upgrade.
+POSTGRES_WAIT_SECONDS=600
+waited=0
+until pg_isready -q -h "${POSTGRES_DOMAIN}" -p 5432 -U "${POSTGRES_USER}" -d "${POSTGRES_DB}"; do
+  if [ "$waited" -ge "$POSTGRES_WAIT_SECONDS" ]; then
+    echo "[ERROR - entrypoint] Postgres at ${POSTGRES_DOMAIN} not ready after ${POSTGRES_WAIT_SECONDS}s. Exiting..."
+    exit 1
+  fi
+  [ $((waited % 30)) -eq 0 ] && echo "[INFO - entrypoint] Waiting for postgres at ${POSTGRES_DOMAIN}..."
+  sleep 2
+  waited=$((waited + 2))
+done
+
 set -e
 
 # Get postgresql database version and trim whitespaces
