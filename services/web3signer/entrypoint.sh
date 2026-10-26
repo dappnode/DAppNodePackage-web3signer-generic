@@ -37,6 +37,11 @@ generate_host_allowlist() {
     HOST_ALLOWLIST="${HOST_ALLOWLIST},${alias}.${NETWORK}.dncore.dappnode,${alias}.${NETWORK}.staker.dappnode,${alias}.${NETWORK}.dappnode.private"
   done
 
+  # Remaining names Docker and the DAppManager give this container: the compose service
+  # name, the private network domain and the container name
+  if [ "${NETWORK}" = "mainnet" ]; then dnp_name="web3signer.dnp.dappnode.eth"; else dnp_name="web3signer-${NETWORK}.dnp.dappnode.eth"; fi
+  HOST_ALLOWLIST="${HOST_ALLOWLIST},web3signer,${WEB3SIGNER_DOMAIN}.private,web3signer.${WEB3SIGNER_DOMAIN}.private,DAppNodePackage-web3signer.${dnp_name}"
+
   if [ -n "${consensus_domain}" ]; then
     HOST_ALLOWLIST="${HOST_ALLOWLIST},validator.${consensus_domain}"
   fi
