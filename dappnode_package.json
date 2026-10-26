@@ -48,7 +48,7 @@
     {
       "arg": "BRAIN_VERSION",
       "repo": "dappnode/StakingBrain",
-      "version": "0.1.32"
+      "version": "0.1.33"
     },
     {
       "arg": "STAKER_SCRIPTS_VERSION",
