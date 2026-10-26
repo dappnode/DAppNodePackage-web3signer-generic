@@ -46,8 +46,10 @@ generate_host_allowlist() {
     HOST_ALLOWLIST="${HOST_ALLOWLIST},validator.${consensus_domain}"
   fi
 
-  if [ -n "${EXTRA_HOST_ALLOWLIST}" ]; then
-    HOST_ALLOWLIST="${HOST_ALLOWLIST},${EXTRA_HOST_ALLOWLIST}"
+  # Strip whitespace: FLAGS is word-split, so "a, b" would pass "b" as a stray argument and web3signer would not start
+  extra_hosts=$(printf '%s' "${EXTRA_HOST_ALLOWLIST}" | tr -d '[:space:]')
+  if [ -n "${extra_hosts}" ]; then
+    HOST_ALLOWLIST="${HOST_ALLOWLIST},${extra_hosts}"
   fi
 
   echo "[INFO - entrypoint] Generated HOST_ALLOWLIST: ${HOST_ALLOWLIST}"
