@@ -33,6 +33,11 @@ services:
         POSTGRES_PASSWORD: gnosis
         PGPASSWORD: gnosis
         POSTGRES_DB: web3signer-gnosis
+    # PostgreSQL 18 layout: the cluster lives in /var/lib/postgresql/18/docker inside the volume.
+    # A PostgreSQL 14 cluster from older package versions sits at the volume root and is
+    # upgraded on start by upgrade-from-14.sh.
+    volumes:
+      - postgres_data:/var/lib/postgresql
 
   tracker:
     build:

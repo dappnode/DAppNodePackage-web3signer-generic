@@ -6,7 +6,14 @@ WORKDIR /usr/src/app
 RUN apk --no-cache add git && \
     git clone --depth 1 --branch ${WEB3SIGNER_VERSION} https://github.com/ConsenSys/web3signer.git
 
-FROM postgres:14.1-bullseye
+FROM postgres:18.6-bookworm
+
+# PostgreSQL 14 binaries are only used by upgrade-from-14.sh to dump clusters
+# created by package versions that ran PostgreSQL 14.
+RUN sed -i 's/$/ 14/' /etc/apt/sources.list.d/pgdg.list && \
+    apt-get update && \
+    apt-get install --yes --no-install-recommends postgresql-14 && \
+    rm -rf /var/lib/apt/lists/*
 
 ARG POSTGRES_PASSWORD
 ARG PGPASSWORD
@@ -23,3 +30,8 @@ COPY rename_files.sh /usr/local/bin/rename_files.sh
 COPY --from=migrations-download /usr/src/app/web3signer/slashing-protection/src/main/resources/migrations/postgresql/* ${INITDB_DIR}
 
 RUN chmod +x /usr/local/bin/rename_files.sh && /usr/local/bin/rename_files.sh
+
+COPY upgrade-from-14.sh /usr/local/bin/upgrade-from-14.sh
+
+ENTRYPOINT ["upgrade-from-14.sh"]
+CMD ["postgres"]
