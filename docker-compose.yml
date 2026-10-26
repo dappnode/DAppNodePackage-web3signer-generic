@@ -46,6 +46,11 @@ services:
         WEB3SIGNER_VERSION: 26.10.0
         DATA_DIR: /var/lib/postgresql/data
         POSTGRES_USER: postgres
+    healthcheck:
+      test: pg_isready -U postgres
+      interval: 5s
+      timeout: 5s
+      retries: 5
     user: postgres
     volumes:
       - postgres_data:/var/lib/postgresql/data

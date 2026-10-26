@@ -30,7 +30,11 @@ services:
 
   postgres:
     build:
-      dockerfile: Dockerfile.alpine
+      # Must stay on Debian: existing mainnet postgres_data volumes are owned by
+      # the Debian postgres uid (999). The Alpine image runs postgres as uid 70
+      # and cannot read them (postgres crash-loops with "Permission denied" on
+      # /var/lib/postgresql/data), so flyway and web3signer never start.
+      dockerfile: Dockerfile.debian
       args:
         POSTGRES_PASSWORD: mainnet
         PGPASSWORD: mainnet

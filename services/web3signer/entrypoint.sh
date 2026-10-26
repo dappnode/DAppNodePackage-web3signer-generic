@@ -9,7 +9,6 @@ KEYFILES_DIR="/data/keyfiles"
 WEB3SIGNER_DOMAIN=$(get_web3signer_domain "${NETWORK}" "${SUPPORTED_NETWORKS}")
 
 generate_cors_settings() {
-  CORS_ALLOWLIST="web3signer.${WEB3SIGNER_DOMAIN},brain.${WEB3SIGNER_DOMAIN},signer.${NETWORK}.dncore.dappnode,signer.${NETWORK}.staker.dappnode"
   CORS_ORIGINS="http://web3signer.${WEB3SIGNER_DOMAIN},http://brain.${WEB3SIGNER_DOMAIN},http://signer.${NETWORK}.dncore.dappnode,http://signer.${NETWORK}.staker.dappnode"
 
   consensus_dnp=$(get_value_from_global_env "CONSENSUS_CLIENT" "${NETWORK}")
@@ -17,11 +16,9 @@ generate_cors_settings() {
   consensus_domain=$(get_client_network_alias "${consensus_dnp}")
 
   if [ -n "${consensus_domain}" ]; then
-    CORS_ALLOWLIST="${CORS_ALLOWLIST},validator.${consensus_domain}"
     CORS_ORIGINS="${CORS_ORIGINS},http://validator.${consensus_domain}"
   fi
 
-  echo "[INFO - entrypoint] Generated CORS_ALLOWLIST: ${CORS_ALLOWLIST}"
   echo "[INFO - entrypoint] Generated CORS_ORIGINS: ${CORS_ORIGINS}"
 }
 
@@ -38,7 +35,7 @@ run_web3signer() {
   FLAGS="--key-store-path=$KEYFILES_DIR \
     --http-listen-port=9000 \
     --http-listen-host=0.0.0.0 \
-    --http-host-allowlist=$CORS_ALLOWLIST \
+    --http-host-allowlist=* \
     --http-cors-origins=$CORS_ORIGINS \
     --metrics-enabled=true \
     --metrics-host 0.0.0.0 \
