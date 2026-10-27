@@ -53,8 +53,7 @@ services:
       timeout: 5s
       retries: 5
     user: postgres
-    volumes:
-      - postgres_data:/var/lib/postgresql/data
+    # postgres_data is mounted per variant: the mount point depends on the PostgreSQL image
     restart: unless-stopped
   tracker:
     build:
