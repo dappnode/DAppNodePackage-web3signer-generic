@@ -37,7 +37,7 @@
   "requirements": {
     "minimumDappnodeVersion": "0.2.101"
   },
-  "shortDescription": "Remote signer + slashing protection database + User interface to import validator keystores + Flyway for handling db migrations + validatro tracker for notifications",
+  "shortDescription": "Remote signer + slashing protection database + User interface to import validator keystores + Flyway for handling db migrations + validator tracker for notifications",
   "type": "service",
   "upstream": [
     {
