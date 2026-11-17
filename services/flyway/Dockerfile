@@ -1,4 +1,4 @@
-FROM alpine:3.15.10 as migrations-download
+FROM alpine:3.24.4 AS migrations-download
 ARG WEB3SIGNER_VERSION
 WORKDIR /usr/src/app
 
@@ -6,7 +6,7 @@ WORKDIR /usr/src/app
 RUN apk --no-cache add git && \
     git clone --depth 1 --branch ${WEB3SIGNER_VERSION} https://github.com/ConsenSys/web3signer.git
 
-FROM flyway/flyway:11.10-alpine
+FROM flyway/flyway:13.12.2-alpine
 
 ARG NETWORK
 ARG PGPASSWORD
