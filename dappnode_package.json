@@ -43,7 +43,7 @@
     {
       "arg": "WEB3SIGNER_VERSION",
       "repo": "ConsenSys/web3signer",
-      "version": "26.10.2"
+      "version": "26.11.0"
     },
     {
       "arg": "BRAIN_VERSION",
