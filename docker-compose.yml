@@ -14,6 +14,11 @@ services:
     depends_on:
       flyway:
         condition: service_completed_successfully
+      # Stops web3signer before postgres: it exports the slashing protection database when it stops
+      postgres:
+        condition: service_started
+    # Web3Signer shutdown + slashing protection export, a few seconds even for large databases
+    stop_grace_period: 2m
     security_opt:
       - seccomp:unconfined
     build:
