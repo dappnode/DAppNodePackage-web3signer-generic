@@ -14,6 +14,11 @@
       "name": "brain-db",
       "path": "/app/data/brain-db.json",
       "service": "brain"
+    },
+    {
+      "name": "slashing-protection",
+      "path": "/data/slashing-protection.json",
+      "service": "web3signer"
     }
   ],
   "bugs": {

@@ -10,7 +10,9 @@ ARG POSTGRES_USER
 
 USER root
 
-RUN apt-get update && apt-get install --yes --no-install-recommends ca-certificates && apt-get clean
+# postgresql-client: the entrypoint identifies the slashing protection database to decide whether a
+# restored slashing protection backup must be imported
+RUN apt-get update && apt-get install --yes --no-install-recommends ca-certificates postgresql-client && apt-get clean
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
 
